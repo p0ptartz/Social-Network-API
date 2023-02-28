@@ -41,8 +41,13 @@ const reactionSchema = new mongoose.Schema(
             default: Date.now
             // Use a getter method to format the timestamp on query ??????
         }
-    }
-)
+    }, {
+    toJSON: {
+        virtuals: true,
+        getters: true
+    },
+    id: true
+})
 
 thoughtSchema.virtual("reactionCount").get(function () {
     return this.reactions.length;
