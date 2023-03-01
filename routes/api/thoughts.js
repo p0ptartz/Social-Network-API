@@ -1,8 +1,9 @@
 const router = require("express").Router()
-const { User, Thoughts } = require("../../models/Thought")
+const Thoughts = require("../../models/Thought")
+const User = require("../../models/User")
 
 // GET to get all thoughts
-router.get("/thoughts", (req, res) => {
+router.get("/", (req, res) => {
     Thoughts.find()
         .then((data) => {
             res.json(data)
@@ -13,7 +14,7 @@ router.get("/thoughts", (req, res) => {
 })
 
 // GET to get a single thought by its _id
-router.get("/thoughts/:id", (req, res) => {
+router.get("/:id", (req, res) => {
     Thoughts.findById(req.params.id)
         .populate("reactions")
         .then((data) => {
@@ -29,7 +30,7 @@ router.get("/thoughts/:id", (req, res) => {
 })
 
 // POST to create a new thought (don't forget to push the created thought's _id to the associated user's thoughts array field)
-router.post("/thoughts", (req, res) => {
+router.post("/", (req, res) => {
     Thoughts.create(req.body)
         .then((data) => {
             return User.findByIdAndUpdate(
@@ -44,7 +45,7 @@ router.post("/thoughts", (req, res) => {
 })
 
 // PUT to update a thought by its _id
-router.put("/thoughts/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     Thoughts.findByIdAndUpdate(
         { _id: req.params.id },
         { $set: req.body },
@@ -62,7 +63,7 @@ router.put("/thoughts/:id", (req, res) => {
 })
 
 // DELETE to remove a thought by its _id
-router.delete("/thoughts/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     Thoughts.findByIdAndDelete({
         _id: req.params.id
     })

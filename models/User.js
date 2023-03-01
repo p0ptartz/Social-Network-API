@@ -21,7 +21,8 @@ const userSchema = new mongoose.Schema(
         virtuals: true,
         getters: true
     },
-    id: true
+    id: true,
+    versionKey: false,
 }
 )
 

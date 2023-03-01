@@ -2,7 +2,7 @@ const router = require("express").Router()
 const User = require("../../models/User")
 
 // GET all users
-router.get("/users", (req, res) => {
+router.get("/", (req, res) => {
     User.find()
         .then((data) => {
             res.json(data)
@@ -13,7 +13,7 @@ router.get("/users", (req, res) => {
 })
 
 // GET a single user by its _id and populated thought and friend data
-router.get("/users/:id", (req, res) => {
+router.get("/:id", (req, res) => {
     User.findById(req.params.id)
         .populate("thoughts")
         .populate("friends")
@@ -27,7 +27,7 @@ router.get("/users/:id", (req, res) => {
 })
 
 // POST a new user:
-router.post("/users", (req, res) => {
+router.post("/", (req, res) => {
     User.create(req.body)
         .then((data) => {
             res.json(data)
@@ -38,7 +38,7 @@ router.post("/users", (req, res) => {
 })
 
 // PUT to update a user by its _id
-router.put("/users/:id", (req, res) => {
+router.put("/:id", (req, res) => {
     User.findByIdAndUpdate(
         { _id: req.params.id },
         { $set: req.body },
@@ -56,7 +56,7 @@ router.put("/users/:id", (req, res) => {
 })
 
 // DELETE to remove user by its _id
-router.delete("/users/:id", (req, res) => {
+router.delete("/:id", (req, res) => {
     User.findByIdAndDelete({
         _id: req.params.id
     })
