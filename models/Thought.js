@@ -1,26 +1,5 @@
 const mongoose = require('mongoose');
 
-const thoughtSchema = new mongoose.Schema(
-    {
-        thoughtText: {
-            type: String,
-            required: true,
-            minlength: 1,
-            maxlength: 280
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now,
-            // Use a getter method to format the timestamp on query ????????
-        },
-        username: {
-            type: String,
-            required: true
-        },
-        reactions: [reactionSchema]
-    }
-)
-
 const reactionSchema = new mongoose.Schema(
     {
         reactionId: {
@@ -48,6 +27,27 @@ const reactionSchema = new mongoose.Schema(
     },
     id: true
 })
+
+const thoughtSchema = new mongoose.Schema(
+    {
+        thoughtText: {
+            type: String,
+            required: true,
+            minlength: 1,
+            maxlength: 280
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now,
+            // Use a getter method to format the timestamp on query ????????
+        },
+        username: {
+            type: String,
+            required: true
+        },
+        reactions: [reactionSchema]
+    }
+)
 
 thoughtSchema.virtual("reactionCount").get(function () {
     return this.reactions.length;
