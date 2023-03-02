@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
     Thoughts.create(req.body)
         .then((data) => {
             return User.findByIdAndUpdate(
-                data.userId,
+
                 { $push: { thoughts: data._id } },
                 { new: true }
             );
